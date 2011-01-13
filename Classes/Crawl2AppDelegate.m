@@ -19,7 +19,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    // Override point for customization after application launch.
+    window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+	viewController = [[Crawl2ViewController alloc] init];
      
     [window addSubview:viewController.view];
     [window makeKeyAndVisible];
