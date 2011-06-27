@@ -15,8 +15,8 @@
     Crawl2ViewController *viewController;
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain)  UIWindow *window;
 
-@property (nonatomic, retain) IBOutlet Crawl2ViewController *viewController;
+@property (nonatomic, retain)  Crawl2ViewController *viewController;
 
 @end

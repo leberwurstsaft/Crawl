@@ -190,12 +190,11 @@ void stringCallback(CGPDFScannerRef inScanner, void *userInfo)
 	
 	if (buttonIndex == 0) {
 		
-		NSDictionary *savedData = [NSKeyedUnarchiver unarchiveObjectWithFile: [NSString stringWithFormat: @"%@/index", documentsDirectory]];
-		invertedIndex = [[savedData objectForKey:@"index"] retain];
-		documentUrls = [[savedData objectForKey:@"documentUrls"] retain];
+		invertedIndex = [[NSKeyedUnarchiver unarchiveObjectWithFile: [NSString stringWithFormat: @"%@/index", documentsDirectory]] retain];
+		documentUrls = [[NSKeyedUnarchiver unarchiveObjectWithFile: [NSString stringWithFormat: @"%@/documenturls", documentsDirectory]] retain];
+
 		indexLoaded = YES;
 
-		
 		[crawlerView performSelector:@selector(enableQueries)  withObject:nil afterDelay:0.5];
 		[alertView release];
 	}
@@ -376,11 +375,9 @@ void stringCallback(CGPDFScannerRef inScanner, void *userInfo)
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDirectory = [paths objectAtIndex:0];
 		
-		NSDictionary *dataToSave = [NSDictionary dictionaryWithObjectsAndKeys:
-									invertedIndex, @"index",
-									documentUrls, @"documentUrls",
-									nil];
-		BOOL result = [NSKeyedArchiver archiveRootObject: dataToSave toFile: [NSString stringWithFormat:@"%@/index", documentsDirectory]];
+		BOOL result = [NSKeyedArchiver archiveRootObject: invertedIndex toFile: [NSString stringWithFormat:@"%@/index", documentsDirectory]];
+        result = result && [NSKeyedArchiver archiveRootObject: documentUrls toFile: [NSString stringWithFormat:@"%@/documenturls", documentsDirectory]];
+		
 		if (result) {
 			BOOL res = [NSKeyedArchiver archiveRootObject: entryURL toFile: [NSString stringWithFormat:@"%@/entryurl", documentsDirectory]];
 
